@@ -1,5 +1,4 @@
 import { useHealthz } from "@/api/apiComponents";
-import { Button } from "@/components/ui/button";
 import { createLazyFileRoute } from "@tanstack/react-router";
 
 // Ce composant correspond à la page d'accueil comme serait l'index.html
@@ -10,14 +9,10 @@ const Index = () => {
   const { data, isLoading } = useHealthz({});
 
   return (
-    <div>
-      <p>Hello /!</p>
-      <p>
-        Etat du serveur:{" "}
-        {isLoading ? "Chargement en cours..." : (data?.status ?? "Inconnu")}
-      </p>
-
-      <Button>Je suis un bouton !</Button>
+    <div className="w-full h-full flex flex-col">
+      <div className="flex-1 flex items-center justify-center">
+        {isLoading ? <p>Loading...</p> : <p>Healthz: {data?.status}</p>}
+      </div>
     </div>
   );
 };

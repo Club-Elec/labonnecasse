@@ -1,0 +1,55 @@
+openapi: '3.0.0'
+
+x-json-schema-faker:
+   min-items: 0
+   max-items: 100
+   fillProperties: false
+
+info:
+  title: "labonnecasse"
+  description: "API de La Bonne Casse"
+  version: "0.0.1"
+
+servers:
+  - url: "http://127.0.0.1:5000"
+    description: "Serveur local"
+
+components:
+  schemas:
+    Item:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        price:
+          type: number
+          format: float
+        stock:
+          type: integer
+          format: int32
+      required:
+        - id
+        - name
+        - price
+        - stock
+
+paths:
+  /healthz:
+    get:
+      operationId: "healthz"
+      summary: "Vérifier l'état du service"
+      description: "Cette route renvoie un statut pour indiquer que le service est opérationnel."
+      responses:
+        "200":
+          description: "Le service est en bonne santé."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "ok"

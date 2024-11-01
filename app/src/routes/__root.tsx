@@ -37,7 +37,7 @@ export const Route = createRootRoute({
 
       <Outlet />
 
-      <div className="w-full h-48 grid grid-cols-5 gap-4 p-4 mt-4 bg-gray-200">
+      <div className="w-full h-auto sm:h-48 flex flex-col sm:grid sm:grid-cols-5 gap-4 p-4 mt-4 bg-gray-200">
         <div className="flex flex-col gap-2">
           <p className="font-semibold">À propos de nous</p>
 

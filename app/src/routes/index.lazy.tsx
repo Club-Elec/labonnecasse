@@ -23,18 +23,18 @@ import { ChevronRight, Search } from "lucide-react";
 const Index = () => {
   return (
     <div className="w-full h-auto flex flex-col gap-4">
-      <div className="relative w-full flex items-center justify-center h-96 px-4">
+      <div className="relative w-full flex items-center justify-center h-96 p-4">
         <img
           src="/images/911_gt3_rs.webp"
           className="absolute top-0 left-0 w-full h-full object-cover z-0"
         />
 
-        <div className="relative z-10 flex flex-col gap-8 p-8 bg-white/30 backdrop-blur-md rounded-xl shadow-lg">
+        <div className="relative z-10 w-full h-full sm:w-auto sm:h-auto flex flex-col gap-8 p-8 bg-white/30 backdrop-blur-md rounded-xl shadow-lg">
           <h1 className="text-4xl text-gray-800 font-bold">
             Rechercher votre prochain véhicule
           </h1>
 
-          <div className="flex gap-2">
+          <div className="flex flex-col sm:flex-row gap-2">
             <div className="flex-[2] flex flex-col gap-2">
               <Label htmlFor="search">Rechercher</Label>
               <Input
@@ -65,7 +65,8 @@ const Index = () => {
                 "h-12 aspect-square self-end bg-primary/90 backdrop-blur-md"
               }
             >
-              <Search />
+              <Search className="mr-2 sm:mr-0" />
+              <span className="block sm:hidden">Rechercher</span>
             </Button>
           </div>
         </div>

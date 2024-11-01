@@ -47,7 +47,7 @@ export const Route = createRootRoute({
             </Button>
           </Link>
 
-          <Link>
+          <Link href="https://www.instagram.com/lacasseisen/">
             <Button variant={"link"} className="pl-0 text-black">
               Instagram
             </Button>
@@ -59,6 +59,32 @@ export const Route = createRootRoute({
             </Button>
           </Link>
         </div>
+
+        <div className="flex flex-col gap-2">
+          <p className="font-semibold">Nous contacter</p>
+
+          <a href="mailto:...">
+            <Button variant={"link"} className="pl-0 text-black">
+              Envoyer un e-mail
+            </Button>
+          </a>
+
+          <a href="tel:...">
+            <Button variant={"link"} className="pl-0 text-black">
+              Nous appeler
+            </Button>
+          </a>
+
+          <a href="https://maps.app.goo.gl/wQ72yxUp8jEzojxR9">
+            <Button variant={"link"} className="pl-0 text-black">
+              Venir nous voir
+            </Button>
+          </a>
+        </div>
+
+        <div className="flex flex-col gap-4">pas fan du footer</div>
+
+        <div className="flex flex-col gap-4"></div>
 
         <div className="flex flex-col gap-2">
           <p className="font-semibold">Mentions légales</p>
@@ -78,35 +104,6 @@ export const Route = createRootRoute({
           <p className="font-semibold text-sm">
             © {new Date().getFullYear()} La Bonne Casse.
           </p>
-        </div>
-
-        <div className="flex flex-col gap-4">pas fan du footer</div>
-
-        <div className="flex flex-col gap-4"></div>
-
-        {
-          // Pas fan du footer
-        }
-        <div className="flex flex-col gap-2">
-          <p className="font-semibold">Nous contacter</p>
-
-          <Link>
-            <Button variant={"link"} className="pl-0 text-black">
-              Envoyer un e-mail
-            </Button>
-          </Link>
-
-          <Link>
-            <Button variant={"link"} className="pl-0 text-black">
-              Nous appeler
-            </Button>
-          </Link>
-
-          <Link>
-            <Button variant={"link"} className="pl-0 text-black">
-              Venir nous voir
-            </Button>
-          </Link>
         </div>
       </div>
     </div>

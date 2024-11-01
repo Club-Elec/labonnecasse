@@ -22,6 +22,11 @@ export const Route = createRootRoute({
                 Annonces
               </Button>
             </Link>
+            <Link to="/rental">
+              <Button variant={"link"} className="text-black">
+                Locations / Emprunts
+              </Button>
+            </Link>
           </div>
 
           <div className="flex gap-2 p-2 rounded-lg">

@@ -15,9 +15,11 @@ import { createFileRoute } from '@tanstack/react-router'
 import { Route as rootRoute } from './routes/__root'
 import { Route as SearchIndexImport } from './routes/search/index'
 import { Route as SalesIndexImport } from './routes/sales/index'
+import { Route as RentalIndexImport } from './routes/rental/index'
 import { Route as NewsIndexImport } from './routes/news/index'
 import { Route as DashboardIndexImport } from './routes/dashboard/index'
 import { Route as SalesIdImport } from './routes/sales/$id'
+import { Route as RentalIdImport } from './routes/rental/$id'
 import { Route as NewsIdImport } from './routes/news/$id'
 
 // Create Virtual Routes
@@ -44,6 +46,12 @@ const SalesIndexRoute = SalesIndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const RentalIndexRoute = RentalIndexImport.update({
+  id: '/rental/',
+  path: '/rental/',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const NewsIndexRoute = NewsIndexImport.update({
   id: '/news/',
   path: '/news/',
@@ -59,6 +67,12 @@ const DashboardIndexRoute = DashboardIndexImport.update({
 const SalesIdRoute = SalesIdImport.update({
   id: '/sales/$id',
   path: '/sales/$id',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const RentalIdRoute = RentalIdImport.update({
+  id: '/rental/$id',
+  path: '/rental/$id',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -86,6 +100,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NewsIdImport
       parentRoute: typeof rootRoute
     }
+    '/rental/$id': {
+      id: '/rental/$id'
+      path: '/rental/$id'
+      fullPath: '/rental/$id'
+      preLoaderRoute: typeof RentalIdImport
+      parentRoute: typeof rootRoute
+    }
     '/sales/$id': {
       id: '/sales/$id'
       path: '/sales/$id'
@@ -105,6 +126,13 @@ declare module '@tanstack/react-router' {
       path: '/news'
       fullPath: '/news'
       preLoaderRoute: typeof NewsIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/rental/': {
+      id: '/rental/'
+      path: '/rental'
+      fullPath: '/rental'
+      preLoaderRoute: typeof RentalIndexImport
       parentRoute: typeof rootRoute
     }
     '/sales/': {
@@ -129,9 +157,11 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexLazyRoute
   '/news/$id': typeof NewsIdRoute
+  '/rental/$id': typeof RentalIdRoute
   '/sales/$id': typeof SalesIdRoute
   '/dashboard': typeof DashboardIndexRoute
   '/news': typeof NewsIndexRoute
+  '/rental': typeof RentalIndexRoute
   '/sales': typeof SalesIndexRoute
   '/search': typeof SearchIndexRoute
 }
@@ -139,9 +169,11 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexLazyRoute
   '/news/$id': typeof NewsIdRoute
+  '/rental/$id': typeof RentalIdRoute
   '/sales/$id': typeof SalesIdRoute
   '/dashboard': typeof DashboardIndexRoute
   '/news': typeof NewsIndexRoute
+  '/rental': typeof RentalIndexRoute
   '/sales': typeof SalesIndexRoute
   '/search': typeof SearchIndexRoute
 }
@@ -150,9 +182,11 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexLazyRoute
   '/news/$id': typeof NewsIdRoute
+  '/rental/$id': typeof RentalIdRoute
   '/sales/$id': typeof SalesIdRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/news/': typeof NewsIndexRoute
+  '/rental/': typeof RentalIndexRoute
   '/sales/': typeof SalesIndexRoute
   '/search/': typeof SearchIndexRoute
 }
@@ -162,27 +196,33 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/news/$id'
+    | '/rental/$id'
     | '/sales/$id'
     | '/dashboard'
     | '/news'
+    | '/rental'
     | '/sales'
     | '/search'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/news/$id'
+    | '/rental/$id'
     | '/sales/$id'
     | '/dashboard'
     | '/news'
+    | '/rental'
     | '/sales'
     | '/search'
   id:
     | '__root__'
     | '/'
     | '/news/$id'
+    | '/rental/$id'
     | '/sales/$id'
     | '/dashboard/'
     | '/news/'
+    | '/rental/'
     | '/sales/'
     | '/search/'
   fileRoutesById: FileRoutesById
@@ -191,9 +231,11 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexLazyRoute: typeof IndexLazyRoute
   NewsIdRoute: typeof NewsIdRoute
+  RentalIdRoute: typeof RentalIdRoute
   SalesIdRoute: typeof SalesIdRoute
   DashboardIndexRoute: typeof DashboardIndexRoute
   NewsIndexRoute: typeof NewsIndexRoute
+  RentalIndexRoute: typeof RentalIndexRoute
   SalesIndexRoute: typeof SalesIndexRoute
   SearchIndexRoute: typeof SearchIndexRoute
 }
@@ -201,9 +243,11 @@ export interface RootRouteChildren {
 const rootRouteChildren: RootRouteChildren = {
   IndexLazyRoute: IndexLazyRoute,
   NewsIdRoute: NewsIdRoute,
+  RentalIdRoute: RentalIdRoute,
   SalesIdRoute: SalesIdRoute,
   DashboardIndexRoute: DashboardIndexRoute,
   NewsIndexRoute: NewsIndexRoute,
+  RentalIndexRoute: RentalIndexRoute,
   SalesIndexRoute: SalesIndexRoute,
   SearchIndexRoute: SearchIndexRoute,
 }
@@ -222,9 +266,11 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/news/$id",
+        "/rental/$id",
         "/sales/$id",
         "/dashboard/",
         "/news/",
+        "/rental/",
         "/sales/",
         "/search/"
       ]
@@ -235,6 +281,9 @@ export const routeTree = rootRoute
     "/news/$id": {
       "filePath": "news/$id.tsx"
     },
+    "/rental/$id": {
+      "filePath": "rental/$id.tsx"
+    },
     "/sales/$id": {
       "filePath": "sales/$id.tsx"
     },
@@ -243,6 +292,9 @@ export const routeTree = rootRoute
     },
     "/news/": {
       "filePath": "news/index.tsx"
+    },
+    "/rental/": {
+      "filePath": "rental/index.tsx"
     },
     "/sales/": {
       "filePath": "sales/index.tsx"

@@ -14,9 +14,11 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as SearchIndexImport } from './routes/search/index'
-import { Route as ItemsIndexImport } from './routes/items/index'
+import { Route as SalesIndexImport } from './routes/sales/index'
+import { Route as NewsIndexImport } from './routes/news/index'
 import { Route as DashboardIndexImport } from './routes/dashboard/index'
-import { Route as ItemsIdImport } from './routes/items/$id'
+import { Route as SalesIdImport } from './routes/sales/$id'
+import { Route as NewsIdImport } from './routes/news/$id'
 
 // Create Virtual Routes
 
@@ -36,9 +38,15 @@ const SearchIndexRoute = SearchIndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const ItemsIndexRoute = ItemsIndexImport.update({
-  id: '/items/',
-  path: '/items/',
+const SalesIndexRoute = SalesIndexImport.update({
+  id: '/sales/',
+  path: '/sales/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const NewsIndexRoute = NewsIndexImport.update({
+  id: '/news/',
+  path: '/news/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -48,9 +56,15 @@ const DashboardIndexRoute = DashboardIndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const ItemsIdRoute = ItemsIdImport.update({
-  id: '/items/$id',
-  path: '/items/$id',
+const SalesIdRoute = SalesIdImport.update({
+  id: '/sales/$id',
+  path: '/sales/$id',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const NewsIdRoute = NewsIdImport.update({
+  id: '/news/$id',
+  path: '/news/$id',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -65,11 +79,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexLazyImport
       parentRoute: typeof rootRoute
     }
-    '/items/$id': {
-      id: '/items/$id'
-      path: '/items/$id'
-      fullPath: '/items/$id'
-      preLoaderRoute: typeof ItemsIdImport
+    '/news/$id': {
+      id: '/news/$id'
+      path: '/news/$id'
+      fullPath: '/news/$id'
+      preLoaderRoute: typeof NewsIdImport
+      parentRoute: typeof rootRoute
+    }
+    '/sales/$id': {
+      id: '/sales/$id'
+      path: '/sales/$id'
+      fullPath: '/sales/$id'
+      preLoaderRoute: typeof SalesIdImport
       parentRoute: typeof rootRoute
     }
     '/dashboard/': {
@@ -79,11 +100,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardIndexImport
       parentRoute: typeof rootRoute
     }
-    '/items/': {
-      id: '/items/'
-      path: '/items'
-      fullPath: '/items'
-      preLoaderRoute: typeof ItemsIndexImport
+    '/news/': {
+      id: '/news/'
+      path: '/news'
+      fullPath: '/news'
+      preLoaderRoute: typeof NewsIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/sales/': {
+      id: '/sales/'
+      path: '/sales'
+      fullPath: '/sales'
+      preLoaderRoute: typeof SalesIndexImport
       parentRoute: typeof rootRoute
     }
     '/search/': {
@@ -100,51 +128,83 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexLazyRoute
-  '/items/$id': typeof ItemsIdRoute
+  '/news/$id': typeof NewsIdRoute
+  '/sales/$id': typeof SalesIdRoute
   '/dashboard': typeof DashboardIndexRoute
-  '/items': typeof ItemsIndexRoute
+  '/news': typeof NewsIndexRoute
+  '/sales': typeof SalesIndexRoute
   '/search': typeof SearchIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexLazyRoute
-  '/items/$id': typeof ItemsIdRoute
+  '/news/$id': typeof NewsIdRoute
+  '/sales/$id': typeof SalesIdRoute
   '/dashboard': typeof DashboardIndexRoute
-  '/items': typeof ItemsIndexRoute
+  '/news': typeof NewsIndexRoute
+  '/sales': typeof SalesIndexRoute
   '/search': typeof SearchIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexLazyRoute
-  '/items/$id': typeof ItemsIdRoute
+  '/news/$id': typeof NewsIdRoute
+  '/sales/$id': typeof SalesIdRoute
   '/dashboard/': typeof DashboardIndexRoute
-  '/items/': typeof ItemsIndexRoute
+  '/news/': typeof NewsIndexRoute
+  '/sales/': typeof SalesIndexRoute
   '/search/': typeof SearchIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/items/$id' | '/dashboard' | '/items' | '/search'
+  fullPaths:
+    | '/'
+    | '/news/$id'
+    | '/sales/$id'
+    | '/dashboard'
+    | '/news'
+    | '/sales'
+    | '/search'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/items/$id' | '/dashboard' | '/items' | '/search'
-  id: '__root__' | '/' | '/items/$id' | '/dashboard/' | '/items/' | '/search/'
+  to:
+    | '/'
+    | '/news/$id'
+    | '/sales/$id'
+    | '/dashboard'
+    | '/news'
+    | '/sales'
+    | '/search'
+  id:
+    | '__root__'
+    | '/'
+    | '/news/$id'
+    | '/sales/$id'
+    | '/dashboard/'
+    | '/news/'
+    | '/sales/'
+    | '/search/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexLazyRoute: typeof IndexLazyRoute
-  ItemsIdRoute: typeof ItemsIdRoute
+  NewsIdRoute: typeof NewsIdRoute
+  SalesIdRoute: typeof SalesIdRoute
   DashboardIndexRoute: typeof DashboardIndexRoute
-  ItemsIndexRoute: typeof ItemsIndexRoute
+  NewsIndexRoute: typeof NewsIndexRoute
+  SalesIndexRoute: typeof SalesIndexRoute
   SearchIndexRoute: typeof SearchIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexLazyRoute: IndexLazyRoute,
-  ItemsIdRoute: ItemsIdRoute,
+  NewsIdRoute: NewsIdRoute,
+  SalesIdRoute: SalesIdRoute,
   DashboardIndexRoute: DashboardIndexRoute,
-  ItemsIndexRoute: ItemsIndexRoute,
+  NewsIndexRoute: NewsIndexRoute,
+  SalesIndexRoute: SalesIndexRoute,
   SearchIndexRoute: SearchIndexRoute,
 }
 
@@ -161,23 +221,31 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/items/$id",
+        "/news/$id",
+        "/sales/$id",
         "/dashboard/",
-        "/items/",
+        "/news/",
+        "/sales/",
         "/search/"
       ]
     },
     "/": {
       "filePath": "index.lazy.tsx"
     },
-    "/items/$id": {
-      "filePath": "items/$id.tsx"
+    "/news/$id": {
+      "filePath": "news/$id.tsx"
+    },
+    "/sales/$id": {
+      "filePath": "sales/$id.tsx"
     },
     "/dashboard/": {
       "filePath": "dashboard/index.tsx"
     },
-    "/items/": {
-      "filePath": "items/index.tsx"
+    "/news/": {
+      "filePath": "news/index.tsx"
+    },
+    "/sales/": {
+      "filePath": "sales/index.tsx"
     },
     "/search/": {
       "filePath": "search/index.tsx"

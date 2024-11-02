@@ -23,7 +23,10 @@ const Rental = () => {
               key={`rental_${i}`}
             >
               <Link to="/rental/$id" params={{ id: i.toString() }}>
-                <div className="w-full sm:w-64 aspect-[4/3] bg-gray-300 rounded-lg"></div>
+                <img
+                  src="/images/911_gt3_rs.webp"
+                  className="w-full sm:w-64 aspect-[4/3] bg-gray-300 rounded-lg object-cover"
+                />
               </Link>
 
               <div className="flex flex-col gap-2 px-4 py-2 w-full sm:max-w-96">

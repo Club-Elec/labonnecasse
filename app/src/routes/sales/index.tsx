@@ -27,7 +27,10 @@ const Sales = () => {
                 params={{ id: i.toString() }}
                 className="place-content-evenly"
               >
-                <div className="w-full sm:w-64 aspect-[4/3] bg-gray-300 rounded-lg"></div>
+                <img
+                  src="/images/911_gt3_rs.webp"
+                  className="w-full sm:w-64 aspect-[4/3] bg-gray-300 rounded-lg object-cover"
+                />
               </Link>
 
               <Card className="flex flex-col sm:flex-row gap-2">

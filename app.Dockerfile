@@ -1,4 +1,5 @@
 FROM node:lts-alpine3.20 as builder
+LABEL stage=builder
 WORKDIR /build
 COPY . .
 

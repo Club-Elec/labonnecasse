@@ -55,86 +55,84 @@ const Index = () => {
         </Button>
       </Link>
 
-      <div className="h-auto w-full grid grid-cols-2 p-4 gap-2 overflow-x-hidden">
-        <Carousel
-          className="w-full col-span-2 md:col-span-1"
-          opts={{ skipSnaps: true }}
-        >
-          <CarouselContent>
+      <div className="w-full h-auto flex flex-col items-center justify-center">
+        <div className="h-auto w-[90%] grid grid-cols-2 p-4 gap-2 overflow-x-hidden">
+          <Carousel
+            className="w-full col-span-2 md:col-span-1"
+            opts={{ skipSnaps: true }}
+          >
+            <CarouselContent>
+              {data.images.map((url, k) => (
+                <CarouselItem key={`${url}-${k}`}>
+                  <img src={url} className="rounded-xl" />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+
+            <CarouselNext className="absolute top-2 right-2" />
+            <CarouselPrevious className="absolute top-2 left-2" />
+          </Carousel>
+
+          <div
+            className={`hidden w-3/4 h-3/4 md:grid grid-cols-4 justify-center self-center grid-rows-3 gap-2`}
+          >
             {data.images.map((url, k) => (
-              <CarouselItem key={`${url}-${k}`}>
-                <img src={url} className="rounded-xl" />
-              </CarouselItem>
+              <img
+                src={url}
+                className="w-full h-full object-cover rounded-lg"
+                key={`${url}-${k}`}
+              />
             ))}
-          </CarouselContent>
-
-          <CarouselNext className="absolute top-2 right-2" />
-          <CarouselPrevious className="absolute top-2 left-2" />
-        </Carousel>
-
-        <div className={`hidden md:grid grid-cols-4 grid-rows-3 gap-2`}>
-          {data.images.map((url, k) => (
-            <img
-              src={url}
-              className="w-full h-full object-cover rounded-lg"
-              key={`${url}-${k}`}
-            />
-          ))}
-        </div>
-      </div>
-
-      <div className="w-full h-auto grid md:grid-cols-2 p-4 gap-2">
-        <div className="flex-1 flex flex-col">
-          <h2 className="text-xl font-semibold">Véhicule {id}</h2>
-          <p>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempora
-            impedit nisi reprehenderit enim? Similique sit et sunt! Explicabo
-            corrupti ullam autem perspiciatis, nam, asperiores itaque ipsum
-            labore, dolores hic repellat.
-          </p>
-
-          <div className="flex justify-end gap-4">
-            <Link href="tel:...">
-              <Button className="text-black px-0" variant={"link"}>
-                Appelez-moi
-              </Button>
-            </Link>
-
-            <Link href="tel:...">
-              <Button className="text-black px-0" variant={"link"}>
-                Envoyez un email
-              </Button>
-            </Link>
           </div>
         </div>
 
-        <Card className="flex-1 p-4">
-          <div className="w-full flex flex-col gap-2">
-            <p className="text-sm font-semibold">Caractéristiques</p>
+        <div className="w-[90%] h-auto flex-col p-4 gap-2">
+          <div className="flex-1 flex flex-col">
+            <h2 className="text-xl font-semibold">Véhicule {id}</h2>
+            <p className="md:max-w-[60%]">
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempora
+              impedit nisi reprehenderit enim? Similique sit et sunt! Explicabo
+              corrupti ullam autem perspiciatis, nam, asperiores itaque ipsum
+              labore, dolores hic repellat.
+            </p>
 
-            <div className="w-fit grid grid-rows-3 grid-flow-col gap-2">
-              <p>
-                <span className="font-semibold">Marque:</span> Porsche
-              </p>
-              <p>
-                <span className="font-semibold">Modèle:</span> 911
-              </p>
-              <p>
-                <span className="font-semibold">Année:</span> 2020
-              </p>
-              <p>
-                <span className="font-semibold">Kilométrage:</span> 12000 km
-              </p>
-              <p>
-                <span className="font-semibold">Carburant:</span> Essence
-              </p>
-              <p>
-                <span className="font-semibold">Boîte de vitesse:</span>
-                &nbsp; Automatique
-              </p>
+            <div className="flex justify-end md:justify-start gap-4 mb-2">
+              <Link href="tel:...">
+                <Button className="text-black px-0" variant={"link"}>
+                  Envoyez un email
+                </Button>
+              </Link>
             </div>
           </div>
-        </Card>
+
+          <Card className="w-fit flex-1 p-4">
+            <div className="w-auto flex flex-col gap-2">
+              <p className="text-sm font-semibold">Caractéristiques</p>
+
+              <div className="w-fit grid grid-rows-3 grid-flow-col gap-2">
+                <p>
+                  <span className="font-semibold">Marque:</span> Porsche
+                </p>
+                <p>
+                  <span className="font-semibold">Modèle:</span> 911
+                </p>
+                <p>
+                  <span className="font-semibold">Année:</span> 2020
+                </p>
+                <p>
+                  <span className="font-semibold">Kilométrage:</span> 12000 km
+                </p>
+                <p>
+                  <span className="font-semibold">Carburant:</span> Essence
+                </p>
+                <p>
+                  <span className="font-semibold">Boîte de vitesse:</span>
+                  &nbsp; Automatique
+                </p>
+              </div>
+            </div>
+          </Card>
+        </div>
       </div>
     </div>
   );

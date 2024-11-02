@@ -30,7 +30,7 @@ export const Route = createRootRoute({
           </div>
 
           <div className="flex gap-2 p-2 rounded-lg">
-            <Link to="/">
+            <Link to="/auth">
               <Button variant={"link"} className="text-black">
                 <User />
                 Mon compte

@@ -46,7 +46,7 @@ const Sales = () => {
                   <div className="flex items-center justify-between gap-2">
                     <p className="font-semibold">Prix: 13546 €</p>
 
-                    <Link to="/rental/$id" params={{ id: i.toString() }}>
+                    <Link to="/sales/$id" params={{ id: i.toString() }}>
                       <Button className="p-0" variant={"link"}>
                         En savoir plus
                       </Button>

@@ -1,14 +1,28 @@
-FROM node:lts-alpine3.20 as builder
+FROM oven/bun as builder
 LABEL stage=builder
+
+# Create a build directory
 WORKDIR /build
+
+# Copy the app source code
 COPY . .
 
-WORKDIR /build/app
-RUN npm i
-RUN npm run gen:queries
+# Move to tha api directory
+WORKDIR /build/api
 
-# ENV VITE_API_URL=
-RUN npm run build
+# Install the dependencies
+RUN bun i
+
+# Move to the app directory
+WORKDIR /build/app
+
+# Install the dependencies
+RUN bun i
+
+ENV VITE_API_URL=.
+
+# Build the app
+RUN bun run build
 
 FROM nginx:1.27 as runtime
 WORKDIR /app

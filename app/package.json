@@ -6,9 +6,6 @@
   "scripts": {
     "dev": "vite --host",
     "build": "tsc -b && vite build",
-    "mock": "npx @stoplight/prism-cli -p 5000 mock ../openapi.yaml -d",
-    "gen:queries": "npx openapi-codegen gen api",
-    "init": "npm install && npx openapi-codegen gen api",
     "lint": "eslint .",
     "preview": "vite preview"
   },
@@ -32,6 +29,7 @@
     "clsx": "^2.1.1",
     "cmdk": "^1.0.0",
     "embla-carousel-react": "^8.3.1",
+    "hono": "^4.6.8",
     "lucide-react": "^0.453.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

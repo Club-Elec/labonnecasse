@@ -9,6 +9,7 @@ import { auth } from "./routes/auth";
 import { news } from "./routes/news";
 import { sales } from "./routes/sales";
 import { rental } from "./routes/rental";
+import { users } from "./routes/users";
 
 // Database
 migrate(database, { migrationsFolder: "./drizzle" });
@@ -19,6 +20,7 @@ const app = new Hono()
   .use(cors({ origin: "*" }))
   .get("/", async (c) => c.text("OK"))
   .route("/auth", auth)
+  .route("/users", users)
   .route("/news", news)
   .route("/sales", sales)
   .route("/rental", rental);

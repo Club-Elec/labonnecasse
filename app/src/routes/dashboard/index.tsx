@@ -1,3 +1,4 @@
+import NewCategory from "@/components/new-category";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import {
@@ -12,8 +13,20 @@ import { api } from "@/lib/api";
 import { qc } from "@/lib/query";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
+import { PlusIcon } from "lucide-react";
 
 const Index = () => {
+  // Retrieve categories
+  const { data: categories } = useQuery({
+    queryKey: ["dashboard", "categories"],
+    queryFn: async () => {
+      const response = await api.settings.categories.$get();
+
+      return await response.json();
+    },
+    initialData: [],
+  });
+
   // Retrieve users
   const { data: users } = useQuery({
     queryKey: ["dashboard", "users"],
@@ -23,6 +36,36 @@ const Index = () => {
       return await response.json();
     },
     initialData: [],
+  });
+
+  // Retrieve analytics
+  const { data: analytics } = useQuery({
+    queryKey: ["dashboard", "analytics"],
+    queryFn: async () => {
+      const response = await api.analytics.$get();
+
+      return await response.json();
+    },
+    initialData: {
+      users: 0,
+    },
+  });
+
+  // Remove category
+  const { mutateAsync: removeCategory } = useMutation({
+    mutationKey: ["dashboard", "categories", "remove"],
+    mutationFn: async (name: string) => {
+      const response = await api.settings.categories[":name"].$delete({
+        param: { name },
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to remove category");
+      }
+
+      // Invalidate the categories query
+      qc.invalidateQueries({ queryKey: ["dashboard", "categories"] });
+    },
   });
 
   // Update user account (disable / enable)
@@ -55,22 +98,75 @@ const Index = () => {
           <h2 className="font-semibold">Toutes les annonces</h2>
         </Card>
         <Card className="row-span-2 row-start-3 flex flex-col gap-2 p-2">
-          <h2 className="font-semibold">Catégories disponibles</h2>
+          <div className="flex justify-between items-center gap-2">
+            <h2 className="font-semibold">Catégories disponibles</h2>
+            <NewCategory>
+              <Button variant={"ghost"} size={"icon"}>
+                <PlusIcon className="w-4 h-4" />
+              </Button>
+            </NewCategory>
+          </div>
+
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Nom</TableHead>
+                <TableHead>Actions</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {categories.map(({ name }) => (
+                <TableRow key={name}>
+                  <TableCell>{name}</TableCell>
+                  <TableCell>
+                    <Button
+                      variant={"outline"}
+                      size={"sm"}
+                      onClick={() => removeCategory(name)}
+                    >
+                      Supprimer
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+              {categories.length === 0 ? (
+                <TableRow>
+                  <TableCell colSpan={2}>Aucune catégorie</TableCell>
+                </TableRow>
+              ) : null}
+            </TableBody>
+          </Table>
         </Card>
         <Card className="row-span-2 row-start-3 flex flex-col gap-2 p-2">
-          <h2 className="font-semibold">Caractéristiques disponibles</h2>
+          <div className="flex justify-between items-center gap-2">
+            <h2 className="font-semibold">Caractéristiques disponibles</h2>
+            <Button variant={"ghost"} size={"icon"}>
+              <PlusIcon className="w-4 h-4" />
+            </Button>
+          </div>
         </Card>
         <Card className="col-span-2 row-span-2 col-start-3 row-start-1 flex flex-col gap-2 p-2">
           <h2 className="font-semibold">Locations et emprunts</h2>
         </Card>
         <Card className="col-span-2 row-span-2 row-start-3 flex flex-col gap-2 p-2">
-          <h2 className="font-semibold">Les actualités</h2>
+          <div className="flex justify-between items-center gap-2">
+            <h2 className="font-semibold">Les actualités</h2>
+            <Button variant={"ghost"} size={"icon"}>
+              <PlusIcon className="w-4 h-4" />
+            </Button>
+          </div>
         </Card>
         <Card className="col-start-5 row-start-1 flex flex-col gap-2 p-2">
-          Stat 1
+          <h2 className="font-semibold">Utilisateurs actifs</h2>
+          <div className="w-full h-full flex items-center justify-center">
+            <p className="font-semibold text-4xl">{analytics.users}</p>
+          </div>
         </Card>
         <Card className="col-start-5 row-start-2 flex flex-col gap-2 p-2">
-          Stat 2
+          <h2 className="font-semibold">Utilisateurs actifs</h2>
+          <div className="w-full h-full flex items-center justify-center">
+            <p className="font-semibold text-4xl">{analytics.users}</p>
+          </div>
         </Card>
         <Card className="row-span-2 col-start-5 row-start-3 flex flex-col gap-2 p-2">
           <h2 className="font-semibold">Les utilisateurs</h2>

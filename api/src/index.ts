@@ -10,6 +10,8 @@ import { news } from "./routes/news";
 import { sales } from "./routes/sales";
 import { rental } from "./routes/rental";
 import { users } from "./routes/users";
+import { analytics } from "./routes/analytics";
+import { settings } from "./routes/settings";
 
 // Database
 migrate(database, { migrationsFolder: "./drizzle" });
@@ -23,7 +25,9 @@ const app = new Hono()
   .route("/users", users)
   .route("/news", news)
   .route("/sales", sales)
-  .route("/rental", rental);
+  .route("/rental", rental)
+  .route("/settings", settings)
+  .route("/analytics", analytics);
 
 // Export / start the app
 export default {

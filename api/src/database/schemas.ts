@@ -8,6 +8,7 @@ export const users = sqliteTable("users", {
 
   // The password is hashed
   password: text("password").notNull(),
+  attempts: integer("attempts").default(0).notNull(),
 
   create_at: integer({ mode: "timestamp_ms" }).notNull(),
   updated_at: integer({ mode: "timestamp_ms" }).notNull(),

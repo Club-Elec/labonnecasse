@@ -74,7 +74,7 @@ const Index = () => {
 
       <div className="flex flex-col gap-4">
         <Link to="/sales">
-          <Button variant={"link"} className="text-black text-2xl">
+          <Button variant={"link"} className="text-foreground text-2xl">
             <ChevronRight className="w-8 h-8" />
             Annonces
           </Button>
@@ -108,7 +108,7 @@ const Index = () => {
 
       <div className="flex flex-col gap-4">
         <Link to="/news">
-          <Button variant={"link"} className="text-black text-2xl">
+          <Button variant={"link"} className="text-foreground text-2xl">
             <ChevronRight className="w-8 h-8" />
             Actualités
           </Button>

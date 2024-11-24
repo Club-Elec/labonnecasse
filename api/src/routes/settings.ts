@@ -1,19 +1,19 @@
+import { zValidator } from "@hono/zod-validator";
+import { eq } from "drizzle-orm";
 import { Hono } from "hono";
 import { database } from "../database/database";
 import {
-  specifications as t_specifications,
   categories as t_categories,
-  specifications_values as t_specifications_values,
   sale_schema_specifications as t_sale_schema_specifications,
+  specifications as t_specifications,
+  specifications_values as t_specifications_values,
 } from "../database/schemas";
-import { zValidator } from "@hono/zod-validator";
 import {
-  settings_get_category,
   settings_create_category,
   settings_create_specification,
+  settings_get_category,
   settings_get_specification,
 } from "./settings-schema";
-import { eq } from "drizzle-orm";
 
 export const settings = new Hono()
   .get("/categories", async (c) => {
@@ -21,6 +21,25 @@ export const settings = new Hono()
 
     return c.json(categories);
   })
+  .get(
+    "/categories/:name",
+    zValidator("param", settings_get_category),
+    async (c) => {
+      const { name } = c.req.valid("param");
+
+      // Retrieve the specifications for the category
+      const specifications = await database
+        .select()
+        .from(t_sale_schema_specifications)
+        .where(eq(t_sale_schema_specifications.category, name));
+
+      // Group the specifications by the category
+      return c.json({
+        name,
+        specifications: specifications.map((spec) => spec.specification),
+      });
+    }
+  )
   .post(
     "/categories",
     zValidator("json", settings_create_category),

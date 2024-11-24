@@ -19,6 +19,7 @@ import { Route as RentalIndexImport } from './routes/rental/index'
 import { Route as NewsIndexImport } from './routes/news/index'
 import { Route as DashboardIndexImport } from './routes/dashboard/index'
 import { Route as AuthIndexImport } from './routes/auth/index'
+import { Route as SalesNewImport } from './routes/sales/new'
 import { Route as SalesIdImport } from './routes/sales/$id'
 import { Route as RentalIdImport } from './routes/rental/$id'
 import { Route as NewsIdImport } from './routes/news/$id'
@@ -70,6 +71,12 @@ const DashboardIndexRoute = DashboardIndexImport.update({
 const AuthIndexRoute = AuthIndexImport.update({
   id: '/auth/',
   path: '/auth/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const SalesNewRoute = SalesNewImport.update({
+  id: '/sales/new',
+  path: '/sales/new',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -149,6 +156,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SalesIdImport
       parentRoute: typeof rootRoute
     }
+    '/sales/new': {
+      id: '/sales/new'
+      path: '/sales/new'
+      fullPath: '/sales/new'
+      preLoaderRoute: typeof SalesNewImport
+      parentRoute: typeof rootRoute
+    }
     '/auth/': {
       id: '/auth/'
       path: '/auth'
@@ -203,6 +217,7 @@ export interface FileRoutesByFullPath {
   '/news/$id': typeof NewsIdRoute
   '/rental/$id': typeof RentalIdRoute
   '/sales/$id': typeof SalesIdRoute
+  '/sales/new': typeof SalesNewRoute
   '/auth': typeof AuthIndexRoute
   '/dashboard': typeof DashboardIndexRoute
   '/news': typeof NewsIndexRoute
@@ -218,6 +233,7 @@ export interface FileRoutesByTo {
   '/news/$id': typeof NewsIdRoute
   '/rental/$id': typeof RentalIdRoute
   '/sales/$id': typeof SalesIdRoute
+  '/sales/new': typeof SalesNewRoute
   '/auth': typeof AuthIndexRoute
   '/dashboard': typeof DashboardIndexRoute
   '/news': typeof NewsIndexRoute
@@ -234,6 +250,7 @@ export interface FileRoutesById {
   '/news/$id': typeof NewsIdRoute
   '/rental/$id': typeof RentalIdRoute
   '/sales/$id': typeof SalesIdRoute
+  '/sales/new': typeof SalesNewRoute
   '/auth/': typeof AuthIndexRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/news/': typeof NewsIndexRoute
@@ -251,6 +268,7 @@ export interface FileRouteTypes {
     | '/news/$id'
     | '/rental/$id'
     | '/sales/$id'
+    | '/sales/new'
     | '/auth'
     | '/dashboard'
     | '/news'
@@ -265,6 +283,7 @@ export interface FileRouteTypes {
     | '/news/$id'
     | '/rental/$id'
     | '/sales/$id'
+    | '/sales/new'
     | '/auth'
     | '/dashboard'
     | '/news'
@@ -279,6 +298,7 @@ export interface FileRouteTypes {
     | '/news/$id'
     | '/rental/$id'
     | '/sales/$id'
+    | '/sales/new'
     | '/auth/'
     | '/dashboard/'
     | '/news/'
@@ -295,6 +315,7 @@ export interface RootRouteChildren {
   NewsIdRoute: typeof NewsIdRoute
   RentalIdRoute: typeof RentalIdRoute
   SalesIdRoute: typeof SalesIdRoute
+  SalesNewRoute: typeof SalesNewRoute
   AuthIndexRoute: typeof AuthIndexRoute
   DashboardIndexRoute: typeof DashboardIndexRoute
   NewsIndexRoute: typeof NewsIndexRoute
@@ -310,6 +331,7 @@ const rootRouteChildren: RootRouteChildren = {
   NewsIdRoute: NewsIdRoute,
   RentalIdRoute: RentalIdRoute,
   SalesIdRoute: SalesIdRoute,
+  SalesNewRoute: SalesNewRoute,
   AuthIndexRoute: AuthIndexRoute,
   DashboardIndexRoute: DashboardIndexRoute,
   NewsIndexRoute: NewsIndexRoute,
@@ -336,6 +358,7 @@ export const routeTree = rootRoute
         "/news/$id",
         "/rental/$id",
         "/sales/$id",
+        "/sales/new",
         "/auth/",
         "/dashboard/",
         "/news/",
@@ -361,6 +384,9 @@ export const routeTree = rootRoute
     },
     "/sales/$id": {
       "filePath": "sales/$id.tsx"
+    },
+    "/sales/new": {
+      "filePath": "sales/new.tsx"
     },
     "/auth/": {
       "filePath": "auth/index.tsx"

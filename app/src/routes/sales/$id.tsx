@@ -44,12 +44,12 @@ const Index = () => {
   return (
     <div className="w-full h-auto flex flex-col">
       <Link to="/sales" className="flex">
-        <Button variant={"link"} className="text-black text-2xl">
+        <Button variant={"link"} className="text-foreground text-2xl">
           <ChevronRight />
           Annonces
         </Button>
 
-        <Button variant={"link"} className="text-black text-2xl pl-0">
+        <Button variant={"link"} className="text-foreground text-2xl pl-0">
           <ChevronRight />
           Annonce {id}
         </Button>
@@ -98,7 +98,7 @@ const Index = () => {
 
             <div className="flex justify-end md:justify-start gap-4 mb-2">
               <Link href="tel:...">
-                <Button className="text-black px-0" variant={"link"}>
+                <Button className="text-foreground px-0" variant={"link"}>
                   Envoyez un email
                 </Button>
               </Link>

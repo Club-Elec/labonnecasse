@@ -9,7 +9,7 @@ const Sales = () => {
   return (
     <div className="w-full h-auto flex flex-col">
       <Link to="/sales">
-        <Button variant={"link"} className="text-black text-2xl">
+        <Button variant={"link"} className="text-foreground text-2xl">
           <ChevronRight className="w-8 h-8" />
           Annonces
         </Button>

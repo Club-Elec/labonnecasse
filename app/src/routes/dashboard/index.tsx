@@ -1,4 +1,5 @@
 import NewCategory from "@/components/new-category";
+import NewSpecification from "@/components/new-specification";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import {
@@ -25,6 +26,17 @@ const Index = () => {
       return await response.json();
     },
     initialData: [],
+  });
+
+  // Retrieve specifications
+  const { data: specifications } = useQuery({
+    queryKey: ["dashboard", "specifications"],
+    queryFn: async () => {
+      const response = await api.settings.specifications.$get();
+
+      return await response.json();
+    },
+    initialData: {},
   });
 
   // Retrieve users
@@ -65,6 +77,23 @@ const Index = () => {
 
       // Invalidate the categories query
       qc.invalidateQueries({ queryKey: ["dashboard", "categories"] });
+    },
+  });
+
+  // Remove specification
+  const { mutateAsync: removeSpecification } = useMutation({
+    mutationKey: ["dashboard", "specifications", "remove"],
+    mutationFn: async (name: string) => {
+      const response = await api.settings.specifications[":name"].$delete({
+        param: { name },
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to remove category");
+      }
+
+      // Invalidate the specifications query
+      qc.invalidateQueries({ queryKey: ["dashboard", "specifications"] });
     },
   });
 
@@ -140,10 +169,44 @@ const Index = () => {
         <Card className="row-span-2 row-start-3 flex flex-col gap-2 p-2">
           <div className="flex justify-between items-center gap-2">
             <h2 className="font-semibold">Caractéristiques disponibles</h2>
-            <Button variant={"ghost"} size={"icon"}>
-              <PlusIcon className="w-4 h-4" />
-            </Button>
+            <NewSpecification>
+              <Button variant={"ghost"} size={"icon"}>
+                <PlusIcon className="w-4 h-4" />
+              </Button>
+            </NewSpecification>
           </div>
+
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Nom</TableHead>
+                <TableHead>Valeurs</TableHead>
+                <TableHead>Actions</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {Object.entries(specifications).map(([name, values]) => (
+                <TableRow key={name}>
+                  <TableCell>{name}</TableCell>
+                  <TableCell>{values.join(", ")}</TableCell>
+                  <TableCell>
+                    <Button
+                      variant={"outline"}
+                      size={"sm"}
+                      onClick={() => removeSpecification(name)}
+                    >
+                      Supprimer
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+              {Object.keys(specifications).length === 0 ? (
+                <TableRow>
+                  <TableCell colSpan={3}>Aucune caractéristique</TableCell>
+                </TableRow>
+              ) : null}
+            </TableBody>
+          </Table>
         </Card>
         <Card className="col-span-2 row-span-2 col-start-3 row-start-1 flex flex-col gap-2 p-2">
           <h2 className="font-semibold">Locations et emprunts</h2>

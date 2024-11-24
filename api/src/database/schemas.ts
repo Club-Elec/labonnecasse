@@ -29,9 +29,6 @@ export const sales = sqliteTable("sales", {
     .notNull()
     .references(() => categories.name),
 
-  // A sale should follow a predefined schema to be valid
-  schema: integer("schema").references(() => sale_schema.id),
-
   create_at: integer({ mode: "timestamp_ms" }).notNull(),
   updated_at: integer({ mode: "timestamp_ms" }).notNull(),
 });
@@ -41,7 +38,10 @@ export const sales_images = sqliteTable("sales_images", {
   url: text("url").notNull(),
 });
 
-// Represents the categories
+/**
+ * Represents the categories
+ * A categorie can have many specifications associated to.
+ */
 export const categories = sqliteTable("categories", {
   name: text("name").unique().notNull(),
 });
@@ -54,7 +54,7 @@ export const specifications = sqliteTable("specifications", {
 // Represents the values of the specifications,
 export const specifications_values = sqliteTable("specifications_values", {
   // The specification
-  specification: integer("specification").references(() => specifications.name),
+  specification: text("specification").references(() => specifications.name),
   // A value
   value: text("value").notNull(),
 });
@@ -69,20 +69,11 @@ export const sales_specifications = sqliteTable("sales_specifications", {
   value: text("value").notNull(),
 });
 
-// A schema is a list of required and optional specifications
-export const sale_schema = sqliteTable("sale_schema", {
-  id: integer("id").primaryKey({ autoIncrement: true }),
-  name: text("name").notNull(),
-});
-
 // Represents the sale schema specifications
 export const sale_schema_specifications = sqliteTable(
   "sale_schema_specifications",
   {
-    schema: integer("schema").references(() => sale_schema.id),
-    specification: integer("specification").references(
-      () => specifications.name
-    ),
-    required: integer("required").default(0),
+    category: text("name").references(() => categories.name),
+    specification: text("specification").references(() => specifications.name),
   }
 );

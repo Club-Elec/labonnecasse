@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "7dbf9c37-cc0a-41aa-b4cc-42d3fbc208de",
+  "id": "5bbf38bb-9c15-47f0-a1be-e8c722ec6feb",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "categories": {
@@ -204,7 +204,7 @@
         },
         "specification": {
           "name": "specification",
-          "type": "integer",
+          "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false

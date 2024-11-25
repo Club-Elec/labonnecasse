@@ -29,7 +29,7 @@ CREATE TABLE `sales_images` (
 --> statement-breakpoint
 CREATE TABLE `sales_specifications` (
 	`sale` integer,
-	`specification` integer,
+	`specification` text,
 	`value` text NOT NULL,
 	FOREIGN KEY (`sale`) REFERENCES `sales`(`id`) ON UPDATE no action ON DELETE no action,
 	FOREIGN KEY (`specification`) REFERENCES `specifications`(`name`) ON UPDATE no action ON DELETE no action

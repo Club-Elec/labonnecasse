@@ -29,14 +29,39 @@ export const settings = new Hono()
 
       // Retrieve the specifications for the category
       const specifications = await database
-        .select()
+        .select({
+          specification: t_sale_schema_specifications.specification,
+          value: t_specifications_values.value,
+        })
         .from(t_sale_schema_specifications)
+        .innerJoin(
+          t_specifications_values,
+          eq(
+            t_sale_schema_specifications.specification,
+            t_specifications_values.specification
+          )
+        )
         .where(eq(t_sale_schema_specifications.category, name));
+
+      // Group the values by the specification
+      const grouped = specifications.reduce((acc, { specification, value }) => {
+        if (!acc[specification!]) {
+          acc[specification!] = [];
+        }
+
+        if (!value) {
+          return acc;
+        }
+
+        acc[specification!].push(value);
+
+        return acc;
+      }, {} as Record<string, string[]>);
 
       // Group the specifications by the category
       return c.json({
         name,
-        specifications: specifications.map((spec) => spec.specification),
+        specifications: grouped,
       });
     }
   )

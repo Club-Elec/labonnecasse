@@ -36,7 +36,9 @@ const Index = () => {
 
           <div className="flex flex-col sm:flex-row gap-2">
             <div className="flex-[2] flex flex-col gap-2">
-              <Label htmlFor="search">Rechercher</Label>
+              <Label htmlFor="search" className="text-black">
+                Rechercher
+              </Label>
               <Input
                 className="min-w-48 h-12 bg-white/30 backdrop-blur-md rounded-lg"
                 placeholder="Recherche..."
@@ -45,10 +47,15 @@ const Index = () => {
             </div>
 
             <div className="flex-1 flex flex-col gap-2">
-              <Label htmlFor="search">Catégorie</Label>
+              <Label htmlFor="search" className="text-black">
+                Catégorie
+              </Label>
               <Select>
                 <SelectTrigger className="min-w-48 h-12 bg-white/30 backdrop-blur-md rounded-lg">
-                  <SelectValue placeholder="Choisir une catégorie" />
+                  <SelectValue
+                    placeholder="Choisir une catégorie"
+                    className="text-black"
+                  />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="voiture">Voiture</SelectItem>

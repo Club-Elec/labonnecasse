@@ -64,7 +64,7 @@ export const sales_specifications = sqliteTable("sales_specifications", {
   // The sale
   sale: integer("sale").references(() => sales.id),
   // The specification
-  specification: integer("specification").references(() => specifications.name),
+  specification: text("specification").references(() => specifications.name),
   // The value associated with the specification
   value: text("value").notNull(),
 });
